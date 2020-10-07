@@ -5,7 +5,7 @@ public class Door implements HomeComponent {
 	private boolean isOpen;
 
 
-	public Door(boolean isOpen, String id) {
+	public Door(String id, boolean isOpen) {
 		this.isOpen = isOpen;
 		this.id = id;
 	}
@@ -13,6 +13,10 @@ public class Door implements HomeComponent {
 	@Override
 	public String getId() {
 		return id;
+	}
+
+	public boolean getOpen() {
+		return isOpen;
 	}
 
 	void setOpen(boolean open) {

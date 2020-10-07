@@ -6,7 +6,6 @@ import ru.sbt.mipt.oop.smarthome.Room;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class SmartHome implements Actionable {
     private final Collection<Room> rooms;
@@ -19,13 +18,19 @@ public class SmartHome implements Actionable {
         this.rooms = new ArrayList<>(rooms);
     }
 
-    @Override
-    public void applyAction(Action action, List<Actionable> parents) {
-        List<Actionable> newParents = new ArrayList<>(parents); // формируем новый список родителей
-        newParents.add(this);
-
+    public Room getRoomByName(String roomName) {
         for (Room room : rooms) {
-            room.applyAction(action, newParents);
+            if (room.getName().equals(roomName)) {
+                return room;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void execute(Action action) {
+        for (Room room : rooms) {
+            room.execute(action);
         }
     }
 }

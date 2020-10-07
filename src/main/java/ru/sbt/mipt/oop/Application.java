@@ -18,7 +18,7 @@ public class Application {
 		// создаём обработчик событий
 		EventHandler handler = new ChainEventHandler(Arrays.asList(
 				new MainSmartHomeEventHandler(smartHome),
-				new LightsOffScenario(smartHome)
+				new HallDoorEventHandler(smartHome)
 		));
 		// начинаем обработку событий
 		EventStreamProcessor processor = new SimpleEventStreamProcessor(handler);

@@ -2,7 +2,6 @@ package ru.sbt.mipt.oop.smarthome;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class Room implements Actionable {
 	private final Collection<HomeComponent> components;
@@ -17,12 +16,19 @@ public class Room implements Actionable {
 		return name;
 	}
 
-	@Override
-	public void applyAction(Action action, List<Actionable> parents) {
-		List<Actionable> newParents = new ArrayList<>(parents);
-		newParents.add(this);
+	public boolean containsComponent(String componentId) {
 		for (HomeComponent component : components) {
-			action.actToComponent(component, newParents);
+			if (component.getId().equals(componentId)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public void execute(Action action) {
+		for (HomeComponent component : components) {
+			action.actToComponent(component);
 		}
 	}
 }

@@ -1,7 +1,5 @@
 package ru.sbt.mipt.oop.smarthome;
 
-import java.util.List;
-
 public class LightOnAction implements Action {
 	private final String objectId;
 
@@ -10,7 +8,7 @@ public class LightOnAction implements Action {
 	}
 
 	@Override
-	public void actToComponent(HomeComponent component, List<Actionable> parents) {
+	public void actToComponent(HomeComponent component) {
 		if (component instanceof Light) {
 			if (component.getId().equals(objectId)) {
 				((Light) component).setOn(true);

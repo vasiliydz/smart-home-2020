@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop.smarthome;
 
 public class SimpleEventStreamProcessor implements EventStreamProcessor {
-	private EventHandler eventHandler;
+	private final EventHandler eventHandler;
 
 	public SimpleEventStreamProcessor(EventHandler eventHandler) {
 		this.eventHandler = eventHandler;

@@ -11,9 +11,4 @@ public class LightOnEvent implements Event {
 	public String getObjectId() {
 		return objectId;
 	}
-
-	@Override
-	public Action generateAction() {
-		return new LightOnAction(objectId);
-	}
 }

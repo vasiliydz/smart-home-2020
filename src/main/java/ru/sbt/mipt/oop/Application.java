@@ -16,10 +16,8 @@ public class Application {
 		// создаём тестовый генератор событий
 		EventStream testEventStream = new RandomEventGenerator(0.95);
 		// создаём обработчик событий
-		EventHandler handler = new ChainEventHandler(Arrays.asList(
-				new MainSmartHomeEventHandler(smartHome),
-				new HallDoorEventHandler(smartHome)
-		));
+		EventHandler handler = new EventHandlerBuilder(smartHome)
+				.setHallDoorScenario(true).build();
 		// начинаем обработку событий
 		EventStreamProcessor processor = new SimpleEventStreamProcessor(handler);
 		processor.processEventStream(testEventStream);

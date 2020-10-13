@@ -17,7 +17,7 @@ public class MainSmartHomeEventHandlerTest {
 		Light light1 = new Light("3", true);
 		Light light2 = new Light("4", false);
 		SmartHome home = buildSimpleHome(door1, door2, light1, light2);
-		EventHandler handler = new MainSmartHomeEventHandler(home);
+		EventHandler handler = new EventHandlerBuilder(home).build();
 		// when
 		handler.handleEvent(new DoorCloseEvent("1"));
 		// then
@@ -34,7 +34,7 @@ public class MainSmartHomeEventHandlerTest {
 		Light light1 = new Light("3", true);
 		Light light2 = new Light("4", false);
 		SmartHome home = buildSimpleHome(door1, door2, light1, light2);
-		EventHandler handler = new MainSmartHomeEventHandler(home);
+		EventHandler handler = new EventHandlerBuilder(home).build();
 		// when
 		handler.handleEvent(new DoorOpenEvent("2"));
 		// then
@@ -51,7 +51,7 @@ public class MainSmartHomeEventHandlerTest {
 		Light light1 = new Light("3", true);
 		Light light2 = new Light("4", true);
 		SmartHome home = buildSimpleHome(door1, door2, light1, light2);
-		EventHandler handler = new MainSmartHomeEventHandler(home);
+		EventHandler handler = new EventHandlerBuilder(home).build();
 		// when
 		handler.handleEvent(new LightOffEvent("3"));
 		// then
@@ -68,7 +68,7 @@ public class MainSmartHomeEventHandlerTest {
 		Light light1 = new Light("3", false);
 		Light light2 = new Light("4", false);
 		SmartHome home = buildSimpleHome(door1, door2, light1, light2);
-		EventHandler handler = new MainSmartHomeEventHandler(home);
+		EventHandler handler = new EventHandlerBuilder(home).build();
 		// when
 		handler.handleEvent(new LightOnEvent("4"));
 		// then
@@ -76,8 +76,6 @@ public class MainSmartHomeEventHandlerTest {
 				new boolean[]{door1.getOpen(), door2.getOpen(),
 						light1.isOn(), light2.isOn()});
 	}
-
-
 
 	private SmartHome buildSimpleHome(Door door1, Door door2, Light light1, Light light2) {
 		Room room1 = new Room(Arrays.asList(
@@ -88,6 +86,4 @@ public class MainSmartHomeEventHandlerTest {
 		), "room2");
 		return new SmartHome(Arrays.asList(room1, room2));
 	}
-
-
 }

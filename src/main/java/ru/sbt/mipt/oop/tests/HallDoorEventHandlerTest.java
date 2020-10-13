@@ -48,12 +48,12 @@ public class HallDoorEventHandlerTest {
 
 	private SmartHome buildSimpleHomeWithHall(Door hallDoor, Light hallLight,
 											  Door roomDoor, Light roomLight) {
-		Room room = new Room(Arrays.asList(
+		Room room = new Room("room", Arrays.asList(
 				roomDoor, roomLight
-		), "room");
-		Room hall = new Room(Arrays.asList(
+		));
+		Room hall = new Room("hall", Arrays.asList(
 				hallDoor, hallLight
-		), "hall");
-		return new SmartHome(Arrays.asList(room, hall));
+		));
+		return new SmartHome("smartHome", Arrays.asList(room, hall));
 	}
 }

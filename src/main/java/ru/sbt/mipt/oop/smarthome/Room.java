@@ -3,21 +3,18 @@ package ru.sbt.mipt.oop.smarthome;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Room implements Actionable {
-	private final Collection<HomeComponent> components;
-	private final String name;
+public class Room implements InnerIteratorActionable {
+	private final String id;
+	private final Collection<Actionable> components;
 
-	public Room(Collection<HomeComponent> components, String name) {
+
+	public Room(String id, Collection<Actionable> components) {
 		this.components = new ArrayList<>(components);
-		this.name = name;
-	}
-
-	public String getName() {
-		return name;
+		this.id = id;
 	}
 
 	public boolean containsComponent(String componentId) {
-		for (HomeComponent component : components) {
+		for (Actionable component : components) {
 			if (component.getId().equals(componentId)) {
 				return true;
 			}
@@ -26,9 +23,14 @@ public class Room implements Actionable {
 	}
 
 	@Override
-	public void execute(Action action) {
-		for (HomeComponent component : components) {
-			action.actToComponent(component);
+	public String getId() {
+		return id;
+	}
+
+	@Override
+	public void applyToInnerComponents(Action action) {
+		for (Actionable component : components) {
+			action.apply(component);
 		}
 	}
 }

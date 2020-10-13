@@ -78,12 +78,12 @@ public class MainSmartHomeEventHandlerTest {
 	}
 
 	private SmartHome buildSimpleHome(Door door1, Door door2, Light light1, Light light2) {
-		Room room1 = new Room(Arrays.asList(
+		Room room1 = new Room("room1", Arrays.asList(
 				door1, light1
-		), "room1");
-		Room room2 = new Room(Arrays.asList(
+		));
+		Room room2 = new Room("room2", Arrays.asList(
 				door2, light2
-		), "room2");
-		return new SmartHome(Arrays.asList(room1, room2));
+		));
+		return new SmartHome("smartHome", Arrays.asList(room1, room2));
 	}
 }

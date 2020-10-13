@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.smarthome.Action;
-import ru.sbt.mipt.oop.smarthome.HomeComponent;
+import ru.sbt.mipt.oop.smarthome.Actionable;
 import ru.sbt.mipt.oop.smarthome.Room;
 
 import java.util.Arrays;
@@ -43,15 +43,15 @@ public class SmartHomeTest {
 						component3.isActed(), component4.isActed()});
 	}
 
-	private SmartHome buildSimpleHome(HomeComponent component1, HomeComponent component2,
-								 HomeComponent component3, HomeComponent component4) {
-		Room room1 = new Room(Arrays.asList(component1, component2), "room1");
-		Room room2 = new Room(Arrays.asList(component3, component4), "room2");
-		return new SmartHome(Arrays.asList(room1, room2));
+	private SmartHome buildSimpleHome(Actionable component1, Actionable component2,
+									  Actionable component3, Actionable component4) {
+		Room room1 = new Room("room1", Arrays.asList(component1, component2));
+		Room room2 = new Room("room2", Arrays.asList(component3, component4));
+		return new SmartHome("smartHome", Arrays.asList(room1, room2));
 
 	}
 
-	private static class TestComponent implements HomeComponent {
+	private static class TestComponent implements Actionable {
 		private final String id;
 		private boolean acted;
 
@@ -77,8 +77,10 @@ public class SmartHomeTest {
 	private static class TestActionToAll implements Action {
 
 		@Override
-		public void actToComponent(HomeComponent component) {
-			((TestComponent)component).setActed(true);
+		public void apply(Actionable actionable) {
+			if (actionable instanceof TestComponent) {
+				((TestComponent) actionable).setActed(true);
+			}
 		}
 	}
 
@@ -90,9 +92,9 @@ public class SmartHomeTest {
 		}
 
 		@Override
-		public void actToComponent(HomeComponent component) {
-			if (component.getId().equals(targetId)) {
-				((TestComponent)component).setActed(true);
+		public void apply(Actionable actionable) {
+			if (actionable.getId().equals(targetId)) {
+				((TestComponent) actionable).setActed(true);
 			}
 		}
 	}

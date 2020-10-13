@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.smarthome;
 
-public class Light implements HomeComponent {
+public class Light implements Actionable {
 	private boolean isOn;
 	private final String id;
 

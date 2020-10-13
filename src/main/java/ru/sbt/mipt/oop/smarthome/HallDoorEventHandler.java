@@ -4,14 +4,9 @@ import ru.sbt.mipt.oop.SmartHome;
 
 public class HallDoorEventHandler implements EventHandler {
 	private final SmartHome home;
-	private final Room hall;
 
 	public HallDoorEventHandler(SmartHome home) {
 		this.home = home;
-		hall = home.getRoomByName("hall");
-		if (hall == null) {
-			throw new RuntimeException("There is no hall in the home");
-		}
 	}
 
 	@Override
@@ -19,7 +14,9 @@ public class HallDoorEventHandler implements EventHandler {
 		if (!(event instanceof DoorCloseEvent)) { // срабатывает только если дверь закрывается
 			return;
 		}
-		if (hall.containsComponent(event.getObjectId())) { // если эта дверь находится в холле
+		IsInHallChecker checker = new IsInHallChecker(event.getObjectId());
+		home.execute(checker);
+		if (checker.found()) { // если эта дверь находится в холле
 			// то вырубаем везде свет
 			home.execute(component -> {
 				if (component instanceof Light) {
@@ -28,6 +25,31 @@ public class HallDoorEventHandler implements EventHandler {
 					new LightOffSensorCommand(light).send(); // и посылаем лампе команду в реальный мир
 				}
 			});
+		}
+	}
+
+	private static class IsInHallChecker implements Action {
+		private final String doorId;
+		private boolean found;
+
+		IsInHallChecker(String doorId) {
+			this.doorId = doorId;
+			found = false;
+		}
+
+		@Override
+		public void apply(Actionable actionable) {
+			if (actionable instanceof Room) {
+				Room room = (Room) actionable;
+				String roomId = room.getId();
+				if (roomId.equals("hall") && room.containsComponent(doorId)) {
+					found = true;
+				}
+			}
+		}
+
+		public boolean found() {
+			return found;
 		}
 	}
 }

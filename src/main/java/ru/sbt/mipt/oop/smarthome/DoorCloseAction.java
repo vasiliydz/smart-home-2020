@@ -8,10 +8,10 @@ public class DoorCloseAction implements Action {
 	}
 
 	@Override
-	public void actToComponent(HomeComponent component) {
-		if (component instanceof Door) {
-			if (component.getId().equals(objectId)) {
-				((Door) component).setOpen(false);
+	public void apply(Actionable actionable) {
+		if (actionable instanceof Door) {
+			if (actionable.getId().equals(objectId)) {
+				((Door) actionable).setOpen(false);
 				System.out.println("Door " + objectId + " was closed.");
 			}
 		}

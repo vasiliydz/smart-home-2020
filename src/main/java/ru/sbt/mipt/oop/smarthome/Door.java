@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.smarthome;
 
-public class Door implements HomeComponent {
+public class Door implements Actionable {
 	private final String id;
 	private boolean isOpen;
 

@@ -8,10 +8,10 @@ public class LightOnAction implements Action {
 	}
 
 	@Override
-	public void actToComponent(HomeComponent component) {
-		if (component instanceof Light) {
-			if (component.getId().equals(objectId)) {
-				((Light) component).setOn(true);
+	public void apply(Actionable actionable) {
+		if (actionable instanceof Light) {
+			if (actionable.getId().equals(objectId)) {
+				((Light) actionable).setOn(true);
 				System.out.println("Light " + objectId + " was turned on.");
 			}
 		}

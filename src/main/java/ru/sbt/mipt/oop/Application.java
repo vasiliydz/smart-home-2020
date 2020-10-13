@@ -17,7 +17,10 @@ public class Application {
 		EventStream testEventStream = new RandomEventGenerator(0.95);
 		// создаём обработчик событий
 		EventHandler handler = new ChainEventHandler(Arrays.asList(
-				new MainSmartHomeEventHandler(smartHome),
+				new LightOffEventHandler(smartHome),
+				new LightOnEventHandler(smartHome),
+				new DoorCloseEventHandler(smartHome),
+				new DoorOpenEventHandler(smartHome),
 				new LightsOffScenario(smartHome)
 		));
 		// начинаем обработку событий

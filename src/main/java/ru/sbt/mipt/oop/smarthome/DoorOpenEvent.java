@@ -11,9 +11,4 @@ public class DoorOpenEvent implements Event {
 	public String getObjectId() {
 		return objectId;
 	}
-
-	@Override
-	public Action generateAction() {
-		return new DoorOpenAction(objectId);
-	}
 }

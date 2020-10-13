@@ -11,9 +11,4 @@ public class DoorCloseEvent implements Event {
 	public String getObjectId() {
 		return objectId;
 	}
-
-	@Override
-	public Action generateAction() {
-		return new DoorCloseAction(objectId);
-	}
 }

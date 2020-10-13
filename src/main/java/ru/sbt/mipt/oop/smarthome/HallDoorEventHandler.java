@@ -18,9 +18,9 @@ public class HallDoorEventHandler implements EventHandler {
 		home.execute(checker);
 		if (checker.found()) { // если эта дверь находится в холле
 			// то вырубаем везде свет
-			home.execute(component -> {
-				if (component instanceof Light) {
-					Light light = (Light) component;
+			home.execute(actionable -> {
+				if (actionable instanceof Light) {
+					Light light = (Light) actionable;
 					light.setOn(false);
 					new LightOffSensorCommand(light).send(); // и посылаем лампе команду в реальный мир
 				}

@@ -18,7 +18,7 @@ public class HallDoorEventHandlerTest {
 		Light roomLight = new Light("4", true);
 		SmartHome home = buildSimpleHomeWithHall(hallDoor, hallLight, roomDoor, roomLight);
 		EventHandler handler = new EventHandlerBuilder(home)
-				.setHallDoorScenario(true).build();
+				.addHallDoorScenario().build();
 		// when
 		handler.handleEvent(new DoorCloseEvent("1"));
 		// then
@@ -36,7 +36,7 @@ public class HallDoorEventHandlerTest {
 		Light roomLight = new Light("4", true);
 		SmartHome home = buildSimpleHomeWithHall(hallDoor, hallLight, roomDoor, roomLight);
 		EventHandler handler = new EventHandlerBuilder(home)
-				.setHallDoorScenario(true).build();
+				.addHallDoorScenario().build();
 		// when
 		handler.handleEvent(new DoorCloseEvent("2"));
 		// then

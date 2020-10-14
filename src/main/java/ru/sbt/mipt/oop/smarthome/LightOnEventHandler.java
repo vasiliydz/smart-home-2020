@@ -12,7 +12,8 @@ public class LightOnEventHandler implements EventHandler {
 	@Override
 	public void handleEvent(Event event) {
 		if (event instanceof LightOnEvent) {
-			Action action = new LightOnAction(event.getObjectId());
+			LightOnEvent lightOnEvent = (LightOnEvent) event;
+			Action action = new LightOnAction(lightOnEvent.getObjectId());
 			home.execute(action);
 		}
 	}

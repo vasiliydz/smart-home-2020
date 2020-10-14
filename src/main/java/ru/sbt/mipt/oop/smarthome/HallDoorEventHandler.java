@@ -14,6 +14,7 @@ public class HallDoorEventHandler implements EventHandler {
 		if (!(event instanceof DoorCloseEvent)) { // срабатывает только если дверь закрывается
 			return;
 		}
+		DoorCloseEvent doorCloseEvent = (DoorCloseEvent) event;
 		// ищем холл
 		HallFinder hallFinder = new HallFinder();
 		home.execute(hallFinder);
@@ -22,7 +23,7 @@ public class HallDoorEventHandler implements EventHandler {
 		}
 		Room hall = hallFinder.getHall();
 		// ищем в холле дверь
-		DoorFinder doorFinder = new DoorFinder(event.getObjectId());
+		DoorFinder doorFinder = new DoorFinder(doorCloseEvent.getObjectId());
 		hall.execute(doorFinder);
 		if (doorFinder.found()) { // если эта дверь находится в холле
 			// то вырубаем везде свет

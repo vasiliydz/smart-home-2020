@@ -12,7 +12,8 @@ public class DoorCloseEventHandler implements EventHandler {
 	@Override
 	public void handleEvent(Event event) {
 		if (event instanceof DoorCloseEvent) {
-			Action action = new DoorCloseAction(event.getObjectId());
+			DoorCloseEvent doorCloseEvent = (DoorCloseEvent) event;
+			Action action = new DoorCloseAction(doorCloseEvent.getObjectId());
 			home.execute(action);
 		}
 	}

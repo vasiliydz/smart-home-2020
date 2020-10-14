@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.smarthome;
 
-public class DoorCloseEvent implements Event {
+public class DoorCloseEvent implements ActionableEvent {
 	private final String objectId;
 
 	public DoorCloseEvent(String objectId) {

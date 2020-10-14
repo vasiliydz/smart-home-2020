@@ -17,7 +17,8 @@ public class Application {
 		EventStream testEventStream = new RandomEventGenerator(0.95);
 		// создаём обработчик событий
 		EventHandler handler = new EventHandlerBuilder(smartHome)
-				.setHallDoorScenario(true).build();
+				.addHallDoorScenario().addSignalization()
+				.addMessageSender(new SmsSender()).build();
 		// начинаем обработку событий
 		EventStreamProcessor processor = new SimpleEventStreamProcessor(handler);
 		processor.processEventStream(testEventStream);

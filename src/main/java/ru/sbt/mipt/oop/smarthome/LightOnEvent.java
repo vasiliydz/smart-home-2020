@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.smarthome;
 
-public class LightOnEvent implements Event {
+public class LightOnEvent implements ActionableEvent {
 	private final String objectId;
 
 	public LightOnEvent(String objectId) {

@@ -12,7 +12,8 @@ public class LightOffEventHandler implements EventHandler {
 	@Override
 	public void handleEvent(Event event) {
 		if (event instanceof LightOffEvent) {
-			Action action = new LightOffAction(event.getObjectId());
+			LightOffEvent lightOffEvent = (LightOffEvent) event;
+			Action action = new LightOffAction(lightOffEvent.getObjectId());
 			home.execute(action);
 		}
 	}

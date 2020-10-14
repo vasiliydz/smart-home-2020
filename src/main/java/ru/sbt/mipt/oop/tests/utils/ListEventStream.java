@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.tests;
+package ru.sbt.mipt.oop.tests.utils;
 
 import ru.sbt.mipt.oop.smarthome.Event;
 import ru.sbt.mipt.oop.smarthome.EventStream;

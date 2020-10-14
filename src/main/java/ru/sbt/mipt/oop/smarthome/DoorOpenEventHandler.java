@@ -12,7 +12,8 @@ public class DoorOpenEventHandler implements EventHandler {
 	@Override
 	public void handleEvent(Event event) {
 		if (event instanceof DoorOpenEvent) {
-			Action action = new DoorOpenAction(event.getObjectId());
+			DoorOpenEvent doorOpenEvent = (DoorOpenEvent) event;
+			Action action = new DoorOpenAction(doorOpenEvent.getObjectId());
 			home.execute(action);
 		}
 	}

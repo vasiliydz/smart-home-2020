@@ -5,21 +5,12 @@ import java.util.Collection;
 
 public class Room implements InnerIteratorActionable {
 	private final String id;
-	private final Collection<Actionable> components;
+	private final Collection<Actionable> innerActionables;
 
 
-	public Room(String id, Collection<Actionable> components) {
-		this.components = new ArrayList<>(components);
+	public Room(String id, Collection<Actionable> innerActionables) {
+		this.innerActionables = new ArrayList<>(innerActionables);
 		this.id = id;
-	}
-
-	public boolean containsComponent(String componentId) {
-		for (Actionable component : components) {
-			if (component.getId().equals(componentId)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	@Override
@@ -28,9 +19,9 @@ public class Room implements InnerIteratorActionable {
 	}
 
 	@Override
-	public void applyToInnerComponents(Action action) {
-		for (Actionable component : components) {
-			action.apply(component);
+	public void executeToInnerActionables(Action action) {
+		for (Actionable actionable : innerActionables) {
+			actionable.execute(action);
 		}
 	}
 }

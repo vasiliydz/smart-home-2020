@@ -27,7 +27,7 @@ public class SmartHome implements InnerIteratorActionable {
     }
 
     @Override
-    public void applyToInnerComponents(Action action) {
+    public void executeToInnerActionables(Action action) {
         for (Room room : rooms) {
             room.execute(action);
         }

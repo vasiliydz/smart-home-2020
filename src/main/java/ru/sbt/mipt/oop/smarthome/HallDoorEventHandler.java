@@ -14,9 +14,17 @@ public class HallDoorEventHandler implements EventHandler {
 		if (!(event instanceof DoorCloseEvent)) { // срабатывает только если дверь закрывается
 			return;
 		}
-		IsInHallChecker checker = new IsInHallChecker(event.getObjectId());
-		home.execute(checker);
-		if (checker.found()) { // если эта дверь находится в холле
+		// ищем холл
+		HallFinder hallFinder = new HallFinder();
+		home.execute(hallFinder);
+		if (!hallFinder.found()) {
+			return;
+		}
+		Room hall = hallFinder.getHall();
+		// ищем в холле дверь
+		DoorFinder doorFinder = new DoorFinder(event.getObjectId());
+		hall.execute(doorFinder);
+		if (doorFinder.found()) { // если эта дверь находится в холле
 			// то вырубаем везде свет
 			home.execute(actionable -> {
 				if (actionable instanceof Light) {
@@ -28,21 +36,44 @@ public class HallDoorEventHandler implements EventHandler {
 		}
 	}
 
-	private static class IsInHallChecker implements Action {
-		private final String doorId;
-		private boolean found;
+	private static class HallFinder implements Action {
+		private Room hall;
 
-		IsInHallChecker(String doorId) {
-			this.doorId = doorId;
-			found = false;
+		HallFinder() {
+			hall = null;
 		}
 
 		@Override
 		public void apply(Actionable actionable) {
 			if (actionable instanceof Room) {
 				Room room = (Room) actionable;
-				String roomId = room.getId();
-				if (roomId.equals("hall") && room.containsComponent(doorId)) {
+				if (room.getId().equals("hall")) {
+					hall = room;
+				}
+			}
+		}
+		public boolean found() {
+			return hall != null;
+		}
+		public Room getHall() {
+			return hall;
+		}
+	}
+
+	private static class DoorFinder implements Action {
+		private final String doorId;
+		private boolean found;
+
+		public DoorFinder(String doorId) {
+			this.doorId = doorId;
+			found = false;
+		}
+
+		@Override
+		public void apply(Actionable actionable) {
+			if (actionable instanceof Door) {
+				Door door = (Door) actionable;
+				if (door.getId().equals(doorId)) {
 					found = true;
 				}
 			}

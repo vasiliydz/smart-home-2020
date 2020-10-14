@@ -1,10 +1,11 @@
 package ru.sbt.mipt.oop.smarthome;
 
 public interface InnerIteratorActionable extends Actionable {
+	@Override
 	default void execute(Action action) {
 		action.apply(this);
-		applyToInnerComponents(action);
+		executeToInnerActionables(action);
 	}
 
-	void applyToInnerComponents(Action action);
+	void executeToInnerActionables(Action action);
 }

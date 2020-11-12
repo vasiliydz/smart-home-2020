@@ -1,7 +1,10 @@
-package ru.sbt.mipt.oop.smarthome;
+package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.SmartHome;
-import ru.sbt.mipt.oop.smarthome.signalization.SignalizationEventHandler;
+import ru.sbt.mipt.oop.smarthome.*;
+import ru.sbt.mipt.oop.smarthome.signalization.Signalization;
+import ru.sbt.mipt.oop.smarthome.signalization.SignalizationActivateEventHandler;
+import ru.sbt.mipt.oop.smarthome.signalization.SignalizationDeactivateEventHandler;
+import ru.sbt.mipt.oop.smarthome.signalization.SignalizationEventHandlerMessageDecorator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +13,7 @@ public class EventHandlerBuilder {
 	private final SmartHome smartHome;
 	private boolean hallDoorScenarioOn;
 	private boolean signalizationOn;
+	private Signalization signalization;
 	private List<MessageSender> senders;
 
 	public EventHandlerBuilder(SmartHome smartHome) {
@@ -24,8 +28,9 @@ public class EventHandlerBuilder {
 		return this;
 	}
 
-	public EventHandlerBuilder addSignalization() {
+	public EventHandlerBuilder addSignalization(Signalization signalization) {
 		signalizationOn = true;
+		this.signalization = signalization;
 		return this;
 	}
 
@@ -47,7 +52,11 @@ public class EventHandlerBuilder {
 		EventHandler handler = new ChainEventHandler(handlers);
 		// обработчики-обёртки
 		if (signalizationOn) {
-			handler = new SignalizationEventHandler(handler, new ListMessageSender(senders));
+			List<EventHandler> signalizationHandlers = new ArrayList<>();
+			signalizationHandlers.add(new SignalizationActivateEventHandler(signalization));
+			signalizationHandlers.add(new SignalizationDeactivateEventHandler(signalization));
+			handler = new SignalizationEventHandlerMessageDecorator
+					(handler, signalization, new ListMessageSender(senders));
 		}
 		return handler;
 	}

@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import ru.sbt.mipt.oop.smarthome.Door;
 import ru.sbt.mipt.oop.smarthome.Light;
 import ru.sbt.mipt.oop.smarthome.Room;
+import ru.sbt.mipt.oop.smarthome.signalization.Signalization;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -15,18 +16,7 @@ import java.util.Arrays;
 
 public class HomeBuilder {
 
-	public static void main(String[] args) throws IOException {
-		SmartHome smartHome = buildHome();
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		String jsonString = gson.toJson(smartHome);
-		System.out.println(jsonString);
-		Path path = Paths.get("output.js");
-		try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-			writer.write(jsonString);
-		}
-	}
-
-	public static SmartHome buildHome() {
+	public static SmartHome buildHome(Signalization signalization) {
 		Room kitchen = new Room("kitchen", Arrays.asList(new Light("1", false),
 				new Light("2", true), new Door("1", false)));
 		Room bathroom = new Room("bathroom", Arrays.asList(new Light("3", true),
@@ -35,7 +25,7 @@ public class HomeBuilder {
 				new Light("5", false),	new Light("6", false), new Door("3", true)));
 		Room hall = new Room("hall", Arrays.asList(new Light("7", false),
 				new Light("8", false),	new Light("9", false), new Door("4", false)));
-		SmartHome smartHome = new SmartHome("smartHome", Arrays.asList(kitchen, bathroom, bedroom, hall));
+		SmartHome smartHome = new SmartHome("smartHome", Arrays.asList(kitchen, bathroom, bedroom, hall), signalization);
 		return smartHome;
 	}
 }

@@ -2,8 +2,10 @@ package ru.sbt.mipt.oop.tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ru.sbt.mipt.oop.EventHandlerBuilder;
 import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.smarthome.*;
+import ru.sbt.mipt.oop.smarthome.signalization.Signalization;
 
 import java.util.Arrays;
 
@@ -84,6 +86,6 @@ public class MainSmartHomeEventHandlerTest {
 		Room room2 = new Room("room2", Arrays.asList(
 				door2, light2
 		));
-		return new SmartHome("smartHome", Arrays.asList(room1, room2));
+		return new SmartHome("smartHome", Arrays.asList(room1, room2), new Signalization());
 	}
 }

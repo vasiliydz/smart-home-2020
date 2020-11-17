@@ -1,12 +1,13 @@
 package ru.sbt.mipt.oop.smarthome;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-public class ChainEventHandler implements EventHandler {
+public class CompositeEventHandler implements EventHandler {
 	private final List<EventHandler> handlerList;
 
-	public ChainEventHandler(List<EventHandler> handlerList) {
+	public CompositeEventHandler(Collection<EventHandler> handlerList) {
 		this.handlerList = new ArrayList<>(handlerList);
 	}
 

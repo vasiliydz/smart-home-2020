@@ -26,6 +26,5 @@ public class SignalizationEventHandlerMessageDecorator implements EventHandler {
 		} else if (signalization.isAlerted()) {
 			messageSender.send(event.getClass().getName() + " happened");
 		}
-
 	}
 }

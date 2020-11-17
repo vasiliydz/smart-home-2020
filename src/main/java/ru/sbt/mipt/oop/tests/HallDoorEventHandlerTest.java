@@ -2,12 +2,13 @@ package ru.sbt.mipt.oop.tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ru.sbt.mipt.oop.EventHandlerBuilder;
 import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.smarthome.*;
 import ru.sbt.mipt.oop.smarthome.signalization.Signalization;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class HallDoorEventHandlerTest {
 
@@ -19,8 +20,7 @@ public class HallDoorEventHandlerTest {
 		Light hallLight = new Light("3", true);
 		Light roomLight = new Light("4", true);
 		SmartHome home = buildSimpleHomeWithHall(hallDoor, hallLight, roomDoor, roomLight);
-		EventHandler handler = new EventHandlerBuilder(home)
-				.addHallDoorScenario().build();
+		EventHandler handler = buildEventHandler(home);
 		// when
 		handler.handleEvent(new DoorCloseEvent("1"));
 		// then
@@ -37,8 +37,7 @@ public class HallDoorEventHandlerTest {
 		Light hallLight = new Light("3", true);
 		Light roomLight = new Light("4", true);
 		SmartHome home = buildSimpleHomeWithHall(hallDoor, hallLight, roomDoor, roomLight);
-		EventHandler handler = new EventHandlerBuilder(home)
-				.addHallDoorScenario().build();
+		EventHandler handler = buildEventHandler(home);
 		// when
 		handler.handleEvent(new DoorCloseEvent("2"));
 		// then
@@ -57,5 +56,17 @@ public class HallDoorEventHandlerTest {
 				hallDoor, hallLight
 		));
 		return new SmartHome("smartHome", Arrays.asList(room, hall), new Signalization());
+	}
+
+	private EventHandler buildEventHandler(SmartHome smartHome) {
+		List<EventHandler> handlers = new ArrayList<>();
+		handlers.add(new LightOffEventHandler(smartHome));
+		handlers.add(new LightOnEventHandler(smartHome));
+		handlers.add(new DoorCloseEventHandler(smartHome));
+		handlers.add(new DoorOpenEventHandler(smartHome));
+		handlers.add(new DoorLockedEventHandler(smartHome));
+		handlers.add(new DoorUnlockedEventHandler(smartHome));
+		handlers.add(new HallDoorEventHandler(smartHome));
+		return new CompositeEventHandler(handlers);
 	}
 }

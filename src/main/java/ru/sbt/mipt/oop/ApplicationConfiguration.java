@@ -4,12 +4,13 @@ import com.coolcompany.smarthome.events.SensorEventsManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.sbt.mipt.oop.adapter.coolcompany.EventHandlerAdapter;
+import ru.sbt.mipt.oop.adapter.coolcompany.eventfactories.EventFactory;
 import ru.sbt.mipt.oop.smarthome.*;
 import ru.sbt.mipt.oop.smarthome.signalization.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class ApplicationConfiguration {
@@ -60,14 +61,27 @@ public class ApplicationConfiguration {
 	}
 
 	@Bean
-	EventHandlerAdapter eventHandlerAdapter(Collection<EventHandler> eventHandlers) {
-		return new EventHandlerAdapter(new CompositeEventHandler(eventHandlers));
+	Map<String, EventFactory> eventFactoryMap() {
+		Map<String, EventFactory> ret = new HashMap<>();
+		ret.put("LightIsOn", LightOnEvent::new);
+		ret.put("LightIsOff", LightOffEvent::new);
+		ret.put("DoorIsOpen", DoorOpenEvent::new);
+		ret.put("DoorIsClosed", DoorCloseEvent::new);
+		ret.put("DoorIsLocked", DoorLockedEvent::new);
+		ret.put("DoorIsUnlocked", DoorUnlockedEvent::new);
+		return ret;
 	}
 
 	@Bean
-	SensorEventsManager sensorEventsManager(EventHandlerAdapter eventHandlerAdapter) {
+	com.coolcompany.smarthome.events.EventHandler eventHandlerAdapter(
+			Collection<EventHandler> eventHandlers, Map<String, EventFactory> eventFactories) {
+		return new EventHandlerAdapter(new CompositeEventHandler(eventHandlers), eventFactories);
+	}
+
+	@Bean
+	SensorEventsManager sensorEventsManager(com.coolcompany.smarthome.events.EventHandler eventHandler) {
 		SensorEventsManager ret = new SensorEventsManager();
-		ret.registerEventHandler(eventHandlerAdapter);
+		ret.registerEventHandler(eventHandler);
 		return ret;
 	}
 }

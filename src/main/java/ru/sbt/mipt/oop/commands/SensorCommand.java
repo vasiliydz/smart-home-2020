@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.smarthome;
+package ru.sbt.mipt.oop.commands;
 
 public interface SensorCommand {
 	void send();

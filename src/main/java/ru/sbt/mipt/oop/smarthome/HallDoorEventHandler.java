@@ -1,6 +1,8 @@
 package ru.sbt.mipt.oop.smarthome;
 
 import ru.sbt.mipt.oop.SmartHome;
+import ru.sbt.mipt.oop.commands.AllLightsOffSensorCommand;
+import ru.sbt.mipt.oop.commands.LightOffSensorCommand;
 
 public class HallDoorEventHandler implements EventHandler {
 	private final SmartHome home;
@@ -27,13 +29,7 @@ public class HallDoorEventHandler implements EventHandler {
 		hall.execute(doorFinder);
 		if (doorFinder.found()) { // если эта дверь находится в холле
 			// то вырубаем везде свет
-			home.execute(actionable -> {
-				if (actionable instanceof Light) {
-					Light light = (Light) actionable;
-					light.setOn(false);
-					new LightOffSensorCommand(light).send(); // и посылаем лампе команду в реальный мир
-				}
-			});
+			new AllLightsOffSensorCommand(home).send();
 		}
 	}
 

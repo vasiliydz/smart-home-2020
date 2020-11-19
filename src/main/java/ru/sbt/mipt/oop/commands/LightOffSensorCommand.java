@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop.commands;
 
-import ru.sbt.mipt.oop.smarthome.Light;
-import ru.sbt.mipt.oop.smarthome.LightOffAction;
+import ru.sbt.mipt.oop.smarthome.devices.light.Light;
+import ru.sbt.mipt.oop.smarthome.devices.light.LightOffAction;
 
 public class LightOffSensorCommand implements SensorCommand {
 

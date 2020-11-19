@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop.commands;
 
 import ru.sbt.mipt.oop.smarthome.Actionable;
-import ru.sbt.mipt.oop.smarthome.Light;
+import ru.sbt.mipt.oop.smarthome.devices.light.Light;
 
 public class AllLightsOffSensorCommand implements SensorCommand {
 	private final Actionable actionable;

@@ -11,7 +11,6 @@ public class TestActionable implements Actionable {
 		acted = false;
 	}
 
-	@Override
 	public String getId() {
 		return id;
 	}

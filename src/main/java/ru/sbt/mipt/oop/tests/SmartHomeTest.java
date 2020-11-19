@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.smarthome.Actionable;
 import ru.sbt.mipt.oop.smarthome.Room;
-import ru.sbt.mipt.oop.smarthome.signalization.Signalization;
+import ru.sbt.mipt.oop.smarthome.devices.signalization.Signalization;
 import ru.sbt.mipt.oop.tests.utils.TestActionById;
 import ru.sbt.mipt.oop.tests.utils.TestActionToAll;
 import ru.sbt.mipt.oop.tests.utils.TestActionable;
@@ -50,7 +50,7 @@ public class SmartHomeTest {
 	private SmartHome buildSimpleHome(Actionable[] actionables) {
 		Room room1 = new Room("room1", Arrays.asList(actionables[0], actionables[1]));
 		Room room2 = new Room("room2", Arrays.asList(actionables[2], actionables[3]));
-		return new SmartHome("smartHome", Arrays.asList(room1, room2), new Signalization());
+		return new SmartHome(Arrays.asList(room1, room2), new Signalization());
 
 	}
 

@@ -13,9 +13,10 @@ public class TestActionById implements Action {
 
 	@Override
 	public void apply(Actionable actionable) {
-		if (actionable instanceof TestActionable
-				&& actionable.getId().equals(targetId)) {
-			((TestActionable) actionable).setActed(true);
+		if (actionable instanceof TestActionable) {
+			if (((TestActionable) actionable).getId().equals(targetId)) {
+				((TestActionable) actionable).setActed(true);
+			}
 		}
 	}
 }

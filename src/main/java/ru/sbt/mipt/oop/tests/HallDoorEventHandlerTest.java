@@ -4,7 +4,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.smarthome.*;
-import ru.sbt.mipt.oop.smarthome.signalization.Signalization;
+import ru.sbt.mipt.oop.smarthome.devices.door.*;
+import ru.sbt.mipt.oop.smarthome.devices.light.Light;
+import ru.sbt.mipt.oop.smarthome.eventhandlers.*;
+import ru.sbt.mipt.oop.smarthome.events.DoorCloseEvent;
+import ru.sbt.mipt.oop.smarthome.devices.signalization.Signalization;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,7 +59,7 @@ public class HallDoorEventHandlerTest {
 		Room hall = new Room("hall", Arrays.asList(
 				hallDoor, hallLight
 		));
-		return new SmartHome("smartHome", Arrays.asList(room, hall), new Signalization());
+		return new SmartHome(Arrays.asList(room, hall), new Signalization());
 	}
 
 	private EventHandler buildEventHandler(SmartHome smartHome) {

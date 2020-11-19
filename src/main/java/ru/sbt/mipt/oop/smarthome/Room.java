@@ -4,18 +4,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Room implements InnerIteratorActionable {
-	private final String id;
+	private final String name;
 	private final Collection<Actionable> innerActionables;
 
 
-	public Room(String id, Collection<Actionable> innerActionables) {
+	public Room(String name, Collection<Actionable> innerActionables) {
 		this.innerActionables = new ArrayList<>(innerActionables);
-		this.id = id;
+		this.name = name;
 	}
 
-	@Override
-	public String getId() {
-		return id;
+	public String getName() {
+		return name;
 	}
 
 	@Override

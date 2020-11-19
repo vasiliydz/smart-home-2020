@@ -2,7 +2,8 @@ package ru.sbt.mipt.oop.tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ru.sbt.mipt.oop.smarthome.signalization.*;
+import ru.sbt.mipt.oop.smarthome.eventhandlers.SignalizationEventHandlerMessageDecorator;
+import ru.sbt.mipt.oop.smarthome.devices.signalization.*;
 import ru.sbt.mipt.oop.tests.utils.TestActionable;
 import ru.sbt.mipt.oop.tests.utils.TestEventActedToAll;
 import ru.sbt.mipt.oop.tests.utils.TestEventHandler;
@@ -49,7 +50,7 @@ public class SignalizationEventHandlerMessageDecoratorTest {
 		TestMessageSender sender = new TestMessageSender();
 		SignalizationEventHandlerMessageDecorator handler =
 				new SignalizationEventHandlerMessageDecorator(testEventHandler, signalization, sender);
-		signalization.activate("123");
+		signalization.execute(new SignalizationActivateAction("123"));
 		// when
 		handler.handleEvent(new TestEventActedToAll());
 		// then
@@ -65,7 +66,7 @@ public class SignalizationEventHandlerMessageDecoratorTest {
 		TestMessageSender sender = new TestMessageSender();
 		SignalizationEventHandlerMessageDecorator handler =
 				new SignalizationEventHandlerMessageDecorator(testEventHandler, signalization, sender);
-		signalization.activate("123");
+		signalization.execute(new SignalizationActivateAction("123"));
 		// when
 		handler.handleEvent(new TestEventActedToAll());
 		// then
@@ -81,8 +82,8 @@ public class SignalizationEventHandlerMessageDecoratorTest {
 		TestMessageSender sender = new TestMessageSender();
 		SignalizationEventHandlerMessageDecorator handler =
 				new SignalizationEventHandlerMessageDecorator(testEventHandler, signalization, sender);
-		signalization.activate("123");
-		signalization.alert();
+		signalization.execute(new SignalizationActivateAction("123"));
+		signalization.execute(new SignalizationAlertAction());
 		// when
 		handler.handleEvent(new TestEventActedToAll());
 		// then
@@ -98,8 +99,8 @@ public class SignalizationEventHandlerMessageDecoratorTest {
 		TestMessageSender sender = new TestMessageSender();
 		SignalizationEventHandlerMessageDecorator handler =
 				new SignalizationEventHandlerMessageDecorator(testEventHandler, signalization, sender);
-		signalization.activate("123");
-		signalization.alert();
+		signalization.execute(new SignalizationActivateAction("123"));
+		signalization.execute(new SignalizationAlertAction());
 		// when
 		handler.handleEvent(new TestEventActedToAll());
 		// then

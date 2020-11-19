@@ -1,9 +1,9 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.smarthome.DoorCloseEvent;
-import ru.sbt.mipt.oop.smarthome.DoorOpenEvent;
-import ru.sbt.mipt.oop.smarthome.LightOffEvent;
-import ru.sbt.mipt.oop.smarthome.LightOnEvent;
+import ru.sbt.mipt.oop.smarthome.events.DoorCloseEvent;
+import ru.sbt.mipt.oop.smarthome.events.DoorOpenEvent;
+import ru.sbt.mipt.oop.smarthome.events.LightOffEvent;
+import ru.sbt.mipt.oop.smarthome.events.LightOnEvent;
 import ru.sbt.mipt.oop.smarthome.Event;
 import ru.sbt.mipt.oop.smarthome.EventStream;
 

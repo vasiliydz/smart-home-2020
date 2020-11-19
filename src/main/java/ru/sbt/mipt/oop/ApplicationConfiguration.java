@@ -6,7 +6,14 @@ import org.springframework.context.annotation.Configuration;
 import ru.sbt.mipt.oop.adapter.coolcompany.EventHandlerAdapter;
 import ru.sbt.mipt.oop.adapter.coolcompany.eventfactories.EventFactory;
 import ru.sbt.mipt.oop.smarthome.*;
-import ru.sbt.mipt.oop.smarthome.signalization.*;
+import ru.sbt.mipt.oop.smarthome.eventhandlers.*;
+import ru.sbt.mipt.oop.smarthome.events.LightOffEvent;
+import ru.sbt.mipt.oop.smarthome.events.LightOnEvent;
+import ru.sbt.mipt.oop.smarthome.events.DoorCloseEvent;
+import ru.sbt.mipt.oop.smarthome.events.DoorLockedEvent;
+import ru.sbt.mipt.oop.smarthome.events.DoorOpenEvent;
+import ru.sbt.mipt.oop.smarthome.events.DoorUnlockedEvent;
+import ru.sbt.mipt.oop.smarthome.devices.signalization.*;
 
 import java.util.Collection;
 import java.util.HashMap;

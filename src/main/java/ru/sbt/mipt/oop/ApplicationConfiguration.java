@@ -4,7 +4,7 @@ import com.coolcompany.smarthome.events.SensorEventsManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.sbt.mipt.oop.adapter.coolcompany.EventHandlerAdapter;
-import ru.sbt.mipt.oop.adapter.coolcompany.eventfactories.EventFactory;
+import ru.sbt.mipt.oop.adapter.coolcompany.EventFactory;
 import ru.sbt.mipt.oop.smarthome.*;
 import ru.sbt.mipt.oop.smarthome.eventhandlers.*;
 import ru.sbt.mipt.oop.smarthome.events.LightOffEvent;
@@ -64,7 +64,7 @@ public class ApplicationConfiguration {
 
 	@Bean
 	EventHandler hallDoorEventHandler(SmartHome smartHome){
-		return new HallDoorEventHandler(smartHome);
+		return new EntranceDoorScenarioEventHandler(smartHome);
 	}
 
 	@Bean

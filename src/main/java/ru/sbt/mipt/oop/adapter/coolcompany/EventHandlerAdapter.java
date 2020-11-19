@@ -2,11 +2,9 @@ package ru.sbt.mipt.oop.adapter.coolcompany;
 
 import com.coolcompany.smarthome.events.CCSensorEvent;
 import com.coolcompany.smarthome.events.EventHandler;
-import ru.sbt.mipt.oop.adapter.coolcompany.eventfactories.EventFactory;
 import ru.sbt.mipt.oop.smarthome.*;
 
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 /**
  * Adapts my EventHandler interface to CoolCompany library EventHandler

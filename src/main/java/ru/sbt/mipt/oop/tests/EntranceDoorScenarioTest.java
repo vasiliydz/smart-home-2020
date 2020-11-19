@@ -14,39 +14,39 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HallDoorEventHandlerTest {
+public class EntranceDoorScenarioTest {
 
 	@Test
 	public void switchingOffLightsWhenHallDoorIsClosed() {
 		// given
-		Door hallDoor = new Door("1", true);
+		Door entranceDoor = new EntranceDoor("1", true);
 		Door roomDoor = new Door("2", true);
 		Light hallLight = new Light("3", true);
 		Light roomLight = new Light("4", true);
-		SmartHome home = buildSimpleHomeWithHall(hallDoor, hallLight, roomDoor, roomLight);
+		SmartHome home = buildSimpleHomeWithHall(entranceDoor, hallLight, roomDoor, roomLight);
 		EventHandler handler = buildEventHandler(home);
 		// when
 		handler.handleEvent(new DoorCloseEvent("1"));
 		// then
 		Assertions.assertArrayEquals(new boolean[]{false, true, false, false},
-				new boolean[]{hallDoor.getOpen(), roomDoor.getOpen(),
+				new boolean[]{entranceDoor.getOpen(), roomDoor.getOpen(),
 						hallLight.isOn(), roomLight.isOn()});
 	}
 
 	@Test
 	public void notSwitchingOffLightsWhenNotHallDoorIsClosed() {
 		// given
-		Door hallDoor = new Door("1", true);
+		Door entranceDoor = new EntranceDoor("1", true);
 		Door roomDoor = new Door("2", true);
 		Light hallLight = new Light("3", true);
 		Light roomLight = new Light("4", true);
-		SmartHome home = buildSimpleHomeWithHall(hallDoor, hallLight, roomDoor, roomLight);
+		SmartHome home = buildSimpleHomeWithHall(entranceDoor, hallLight, roomDoor, roomLight);
 		EventHandler handler = buildEventHandler(home);
 		// when
 		handler.handleEvent(new DoorCloseEvent("2"));
 		// then
 		Assertions.assertArrayEquals(new boolean[]{true, false, true, true},
-				new boolean[]{hallDoor.getOpen(), roomDoor.getOpen(),
+				new boolean[]{entranceDoor.getOpen(), roomDoor.getOpen(),
 						hallLight.isOn(), roomLight.isOn()});
 	}
 
@@ -70,7 +70,7 @@ public class HallDoorEventHandlerTest {
 		handlers.add(new DoorOpenEventHandler(smartHome));
 		handlers.add(new DoorLockedEventHandler(smartHome));
 		handlers.add(new DoorUnlockedEventHandler(smartHome));
-		handlers.add(new HallDoorEventHandler(smartHome));
+		handlers.add(new EntranceDoorScenarioEventHandler(smartHome));
 		return new CompositeEventHandler(handlers);
 	}
 }

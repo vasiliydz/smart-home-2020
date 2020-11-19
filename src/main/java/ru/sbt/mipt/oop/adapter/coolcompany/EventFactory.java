@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.adapter.coolcompany.eventfactories;
+package ru.sbt.mipt.oop.adapter.coolcompany;
 
 import ru.sbt.mipt.oop.smarthome.Event;
 

@@ -1,12 +1,12 @@
-package ru.sbt.mipt.oop.commands;
+package ru.sbt.mipt.oop.smarthome.commands;
 
 import ru.sbt.mipt.oop.smarthome.Actionable;
 import ru.sbt.mipt.oop.smarthome.devices.light.Light;
 
-public class AllLightsOffSensorCommand implements SensorCommand {
+public class AllLightsOffCommand implements SensorCommand {
 	private final Actionable actionable;
 
-	public AllLightsOffSensorCommand(Actionable actionable) {
+	public AllLightsOffCommand(Actionable actionable) {
 		this.actionable = actionable;
 	}
 
@@ -15,7 +15,7 @@ public class AllLightsOffSensorCommand implements SensorCommand {
 		actionable.execute(innerActionable -> {
 			if (innerActionable instanceof Light) {
 				Light light = ((Light) innerActionable);
-				new LightOffSensorCommand(light).send();
+				new LightOffCommand(light).send();
 			}
 		});
 	}

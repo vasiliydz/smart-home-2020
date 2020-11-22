@@ -15,9 +15,7 @@ import ru.sbt.mipt.oop.smarthome.events.DoorOpenEvent;
 import ru.sbt.mipt.oop.smarthome.events.DoorUnlockedEvent;
 import ru.sbt.mipt.oop.smarthome.devices.signalization.*;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Configuration
 public class ApplicationConfiguration {
@@ -33,38 +31,31 @@ public class ApplicationConfiguration {
 	}
 
 	@Bean
-	EventHandler lightOffEventHandler(SmartHome smartHome) {
-		return new LightOffEventHandler(smartHome);
+	MessageSender messageSender() {
+		return new SmsSender();
 	}
 
 	@Bean
-	EventHandler lightOnEventHandler(SmartHome smartHome) {
-		return new LightOnEventHandler(smartHome);
-	}
-
-	@Bean
-	EventHandler doorCloseEventHandler(SmartHome smartHome) {
-		return new DoorCloseEventHandler(smartHome);
-	}
-
-	@Bean
-	EventHandler doorOpenEventHandler(SmartHome smartHome) {
-		return new DoorOpenEventHandler(smartHome);
-	}
-
-	@Bean
-	EventHandler doorLockedEventHandler(SmartHome smartHome) {
-		return new DoorLockedEventHandler(smartHome);
-	}
-
-	@Bean
-	EventHandler doorUnlockedEventHandler(SmartHome smartHome) {
-		return new DoorUnlockedEventHandler(smartHome);
-	}
-
-	@Bean
-	EventHandler hallDoorEventHandler(SmartHome smartHome){
-		return new EntranceDoorScenarioEventHandler(smartHome);
+	EventHandler mainEventHandler(SmartHome smartHome, Signalization signalization, MessageSender sender) {
+		// basic handlers
+		EventHandler handler = new CompositeEventHandler(Arrays.asList(
+			new LightOffEventHandler(smartHome),
+			new LightOnEventHandler(smartHome),
+			new DoorCloseEventHandler(smartHome),
+			new DoorOpenEventHandler(smartHome),
+			new DoorLockedEventHandler(smartHome),
+			new DoorUnlockedEventHandler(smartHome),
+			new EntranceDoorScenarioEventHandler(smartHome)
+		));
+		// signalization decorator
+		handler = new SignalizationEventHandlerMessageDecorator(handler, signalization, sender);
+		// signalization handlers
+		handler = new CompositeEventHandler(Arrays.asList(
+			new SignalizationActivateEventHandler(signalization),
+			new SignalizationDeactivateEventHandler(signalization),
+			handler
+		));
+		return handler;
 	}
 
 	@Bean
@@ -81,8 +72,8 @@ public class ApplicationConfiguration {
 
 	@Bean
 	com.coolcompany.smarthome.events.EventHandler eventHandlerAdapter(
-			Collection<EventHandler> eventHandlers, Map<String, EventFactory> eventFactories) {
-		return new EventHandlerAdapter(new CompositeEventHandler(eventHandlers), eventFactories);
+			EventHandler adapteeEventHandler, Map<String, EventFactory> eventFactories) {
+		return new EventHandlerAdapter(adapteeEventHandler, eventFactories);
 	}
 
 	@Bean

@@ -13,7 +13,7 @@ public class SignalizationActivateCommand implements SensorCommand {
 	}
 
 	@Override
-	public void send() {
+	public void execute() {
 		home.execute(new SignalizationActivateAction(code));
 	}
 }

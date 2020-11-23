@@ -30,7 +30,7 @@ public class SensorCommandsTest {
 				Arrays.asList(roomDoor, room1Light, room2Light),
 				Arrays.asList(entranceDoor, hall1Light, hall2Light));
 		// when
-		new AllLightsInHallOnCommand(smartHome).send();
+		new AllLightsInHallOnCommand(smartHome).execute();
 		// then
 		Assertions.assertEquals(false, entranceDoor.getOpen());
 		Assertions.assertEquals(true, roomDoor.getOpen());
@@ -53,7 +53,7 @@ public class SensorCommandsTest {
 				Arrays.asList(roomDoor, room1Light, room2Light),
 				Arrays.asList(entranceDoor, hall1Light, hall2Light));
 		// when
-		new AllLightsOffCommand(smartHome).send();
+		new AllLightsOffCommand(smartHome).execute();
 		// then
 		Assertions.assertEquals(false, entranceDoor.getOpen());
 		Assertions.assertEquals(true, roomDoor.getOpen());
@@ -76,7 +76,7 @@ public class SensorCommandsTest {
 				Arrays.asList(roomDoor, room1Light, room2Light),
 				Arrays.asList(entranceDoor, hall1Light, hall2Light));
 		// when
-		new AllLightsOnCommand(smartHome).send();
+		new AllLightsOnCommand(smartHome).execute();
 		// then
 		Assertions.assertEquals(false, entranceDoor.getOpen());
 		Assertions.assertEquals(true, roomDoor.getOpen());
@@ -99,7 +99,7 @@ public class SensorCommandsTest {
 				Arrays.asList(room1Door, room2Door, roomLight),
 				Arrays.asList(entranceDoor, hallDoor, hallLight));
 		// when
-		new EntranceDoorCloseCommand(smartHome).send();
+		new EntranceDoorCloseCommand(smartHome).execute();
 		// then
 		Assertions.assertEquals(false, entranceDoor.getOpen());
 		Assertions.assertEquals(true, hallDoor.getOpen());
@@ -115,7 +115,7 @@ public class SensorCommandsTest {
 		Signalization signalization = new Signalization();
 		SmartHome smartHome = buildSimpleHome(signalization, Collections.emptyList(), Collections.emptyList());
 		// when
-		new SignalizationActivateCommand(smartHome, "123").send();
+		new SignalizationActivateCommand(smartHome, "123").execute();
 		//then
 		Assertions.assertEquals(true, signalization.isActivated());
 	}
@@ -125,9 +125,9 @@ public class SensorCommandsTest {
 		// given
 		Signalization signalization = new Signalization();
 		SmartHome smartHome = buildSimpleHome(signalization, Collections.emptyList(), Collections.emptyList());
-		new SignalizationActivateCommand(smartHome, "123").send();
+		new SignalizationActivateCommand(smartHome, "123").execute();
 		// when
-		new SignalizationAlertCommand(smartHome).send();
+		new SignalizationAlertCommand(smartHome).execute();
 		//then
 		Assertions.assertEquals(true, signalization.isAlerted());
 	}

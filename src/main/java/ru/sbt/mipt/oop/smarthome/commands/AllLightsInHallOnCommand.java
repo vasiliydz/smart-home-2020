@@ -11,12 +11,12 @@ public class AllLightsInHallOnCommand implements SensorCommand {
 	}
 
 	@Override
-	public void send() {
+	public void execute() {
 		actionable.execute(innerActionable -> {
 			if (innerActionable instanceof Room) {
 				Room room = (Room) innerActionable;
 				if (room.getName().equals("hall")) {
-					new AllLightsOnCommand(room).send();
+					new AllLightsOnCommand(room).execute();
 				}
 			}
 		});

@@ -26,7 +26,7 @@ public class EntranceDoorScenarioEventHandler implements EventHandler {
 		EntranceDoorFinder doorFinder = new EntranceDoorFinder(doorCloseEvent.getObjectId());
 		home.execute(doorFinder);
 		if (doorFinder.found()) { // если есть такая дверь
-			new AllLightsOffCommand(home).send(); // то выключаем свет в доме
+			new AllLightsOffCommand(home).execute(); // то выключаем свет в доме
 		}
 	}
 

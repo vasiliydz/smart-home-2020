@@ -11,11 +11,11 @@ public class AllLightsOffCommand implements SensorCommand {
 	}
 
 	@Override
-	public void send() {
+	public void execute() {
 		actionable.execute(innerActionable -> {
 			if (innerActionable instanceof Light) {
 				Light light = ((Light) innerActionable);
-				new LightOffCommand(light).send();
+				new LightOffCommand(light).execute();
 			}
 		});
 	}

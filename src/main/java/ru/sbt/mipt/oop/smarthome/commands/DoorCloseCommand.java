@@ -11,7 +11,7 @@ public class DoorCloseCommand implements SensorCommand {
 	}
 
 	@Override
-	public void send() {
+	public void execute() {
 		// посылаем команду в реальный мир
 		System.out.println("Sent command: door " + door.getId() + " close");
 		// и меняем состояние дома (по идее должен приходить Event и обрабатываться,

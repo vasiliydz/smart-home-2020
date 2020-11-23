@@ -28,18 +28,11 @@ public class ProgrammableRemoteControl implements RemoteControl {
 		this(rcId, new HashMap<>());
 	}
 
-	public void setCommand(String buttonCode, SensorCommand command) {
-		if (!availableButtons.contains(buttonCode)) {
-			throw new IllegalArgumentException("Button code " + buttonCode + " is not supported");
-		}
-		buttonCommandMap.put(buttonCode, command);
-	}
-
 	@Override
 	public void onButtonPressed(String buttonCode, String rcId) {
 		if (this.rcId.equals(rcId)) {
 			if (availableButtons.contains(buttonCode)) {
-				buttonCommandMap.get(buttonCode).send();
+				buttonCommandMap.get(buttonCode).execute();
 			}
 		}
 	}

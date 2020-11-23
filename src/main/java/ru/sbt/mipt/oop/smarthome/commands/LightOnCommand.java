@@ -11,7 +11,7 @@ public class LightOnCommand implements SensorCommand {
 	}
 
 	@Override
-	public void send() {
+	public void execute() {
 		// посылаем команду в реальный мир
 		System.out.println("Sent command: light " + light.getId() + " on");
 		// и меняем состояние дома (по идее должен приходить Event и обрабатываться,

@@ -11,10 +11,10 @@ public class EntranceDoorCloseCommand implements SensorCommand {
 	}
 
 	@Override
-	public void send() {
+	public void execute() {
 		actionable.execute(innerActionable -> {
 			if (innerActionable instanceof EntranceDoor) {
-				new DoorCloseCommand((EntranceDoor) innerActionable).send();
+				new DoorCloseCommand((EntranceDoor) innerActionable).execute();
 			}
 		});
 	}

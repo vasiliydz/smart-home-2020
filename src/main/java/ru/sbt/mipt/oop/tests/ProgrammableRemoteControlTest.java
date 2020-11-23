@@ -23,32 +23,22 @@ public class ProgrammableRemoteControlTest {
 		// when
 		programmableRC.onButtonPressed(button, rcId);
 		// then
-		Assertions.assertTrue(testSensorCommand.isSent());
+		Assertions.assertTrue(testSensorCommand.isExecuted());
 	}
 
 	@Test
-	public void programmableRCSendsCommandWhenItIsSetAndButtonIsPressed() {
+	public void programmableRCDoesNodSendCommandWhenOtherButtonIsPressed() {
 		// given
 		TestSensorCommand testSensorCommand = new TestSensorCommand();
-		String button = "A";
+		String commandButton = "A";
+		String pressedButton = "B";
 		String rcId = "1";
-		ProgrammableRemoteControl programmableRC = new ProgrammableRemoteControl(rcId);
-		programmableRC.setCommand(button, testSensorCommand);
+		Map<String, SensorCommand> commands = new HashMap<>();
+		commands.put(commandButton, testSensorCommand);
+		ProgrammableRemoteControl programmableRC = new ProgrammableRemoteControl(rcId, commands);
 		// when
-		programmableRC.onButtonPressed(button, rcId);
+		programmableRC.onButtonPressed(pressedButton, rcId);
 		// then
-		Assertions.assertTrue(testSensorCommand.isSent());
-	}
-
-	@Test
-	public void programmableRCThrowsExceptionWhenCommandIsSetToIllegalButton() {
-		// given
-		TestSensorCommand testSensorCommand = new TestSensorCommand();
-		String illegalButton = "X";
-		String rcId = "1";
-		ProgrammableRemoteControl programmableRC = new ProgrammableRemoteControl(rcId);
-		// then
-		Assertions.assertThrows(IllegalArgumentException.class,
-				() -> programmableRC.setCommand(illegalButton, testSensorCommand));
+		Assertions.assertFalse(testSensorCommand.isExecuted());
 	}
 }

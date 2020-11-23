@@ -3,18 +3,18 @@ package ru.sbt.mipt.oop.tests.utils;
 import ru.sbt.mipt.oop.smarthome.commands.SensorCommand;
 
 public class TestSensorCommand implements SensorCommand {
-	private boolean sent;
+	private boolean executed;
 
 	public TestSensorCommand() {
-		sent = false;
+		executed = false;
 	}
 
-	public boolean isSent() {
-		return sent;
+	public boolean isExecuted() {
+		return executed;
 	}
 
 	@Override
-	public void send() {
-		sent = true;
+	public void execute() {
+		executed = true;
 	}
 }

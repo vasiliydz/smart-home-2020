@@ -11,7 +11,7 @@ public class SignalizationAlertCommand implements SensorCommand {
 	}
 
 	@Override
-	public void send() {
+	public void execute() {
 		home.execute(new SignalizationAlertAction());
 	}
 }
